@@ -6,6 +6,10 @@ import com.example.app_challenge_meli.model.search.Search
 
 class ProductsRemoteData {
 
+    /**
+     * Obtiene productos del servicio por medio de una query
+     * @param query
+     **/
     suspend fun getAllProducts(query : String?): Search {
         try {
             val response = RetrofitHelper.service.getProductsByQuery(query)

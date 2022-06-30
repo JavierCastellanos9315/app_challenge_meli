@@ -22,10 +22,18 @@ val Fragment.supportActionBar: ActionBar?
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
+/**
+ * Carga imagen de una url
+ * @param url
+ **/
 fun ImageView.loadUrl(url: String) {
     Glide.with(this).load(url).into(this)
 }
-
+/**
+ * Convierte valor double en moneda Colombiana
+ * @param price
+ * @return String
+ **/
 fun convertPrice (price : Double) : String{
     val locale = Locale("es", "CO")
     val numberFormat = NumberFormat.getNumberInstance(locale)
@@ -34,7 +42,9 @@ fun convertPrice (price : Double) : String{
 
 /**
  * valida si hay o no una conexion a internet
- **/
+ * @param context
+ * @return Boolean
+**/
 fun isNetworkAvailable(context: Context?): Boolean {
     if (context == null) return false
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

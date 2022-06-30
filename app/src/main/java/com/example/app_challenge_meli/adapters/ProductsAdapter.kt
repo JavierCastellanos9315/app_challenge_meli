@@ -27,6 +27,11 @@ class ProductsAdapter (var products: List<Producto> = emptyList(), private val l
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ViewProductBinding.bind(view)
+
+        /**
+         * Carga informacion del producto
+         * @param product
+         **/
         fun bind(product: Producto) {
             binding.title.text = product.title
             product.thumbnail?.let { binding.thumb.loadUrl(it) }

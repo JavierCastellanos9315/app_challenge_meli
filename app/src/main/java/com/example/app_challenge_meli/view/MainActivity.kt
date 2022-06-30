@@ -1,7 +1,6 @@
-package com.example.app_challenge_meli
+package com.example.app_challenge_meli.view
 
 import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.app_challenge_meli.adapters.ProductsAdapter
 import com.example.app_challenge_meli.databinding.ActivityMainBinding
+import com.example.app_challenge_meli.isNetworkAvailable
 import com.example.app_challenge_meli.viewmodels.ProductViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity() {
         productViewModel.setNavigateTo()
     }
 
+    /**
+     * Escuchador cuando de accion de buscar
+     **/
     val edtSearchListener = TextView.OnEditorActionListener { v, actionId, event ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             binding.button.callOnClick()
@@ -65,7 +68,9 @@ class MainActivity : AppCompatActivity() {
         }
         false
     }
-
+    /**
+     * Llama al viewModel para obtener datos de los productos relacionados a la busqueda
+     **/
     val btnSearch =  View.OnClickListener{ v->
         binding.button.isEnabled = false
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

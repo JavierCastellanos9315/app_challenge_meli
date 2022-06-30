@@ -10,6 +10,10 @@ class ProductsRepository {
     private var _searchByQuery  = MediatorLiveData<Search>()
     val searchByQuery: LiveData<Search> get() = _searchByQuery
 
+    /**
+     * Obtiene productos del servicio por medio de una query
+     * @param query
+     **/
     suspend fun getProductsByQuery(query : String?) {
         try {
             repository.getAllProducts(query).also { _searchByQuery.value = it }

@@ -19,22 +19,18 @@ class ProductViewModel : ViewModel(){
 
     init {
         _state.addSource(_localState) { _state.value = it }
-
-        viewModelScope.launch {
-            _localState.value = _localState.value?.copy(loading = true)
-            _state.value = state.value?.copy(products = productsRepository.searchByQuery.value?.results)
-            _localState.value = _localState.value?.copy(loading = false)
-        }
     }
 
+    /**
+     * Guarda el producto seleccionado en navigateTo
+     **/
     fun onProductClicked(product: Producto) {
         _state.value = _state.value?.copy(navigateTo = product)
     }
 
-
-    fun onCreate() {
-    }
-
+    /**
+     * Obtiene productos del respositorio y los guarda en state
+     **/
     fun getProducts(query : String) {
         uiScope.launch {
             _localState.value = _localState.value?.copy(loading = true)
@@ -49,6 +45,9 @@ class ProductViewModel : ViewModel(){
         }
     }
 
+    /**
+     * Se resetea el producto a navegar
+     **/
     fun setNavigateTo() {
         _state.value = _state.value?.copy(navigateTo = null)
     }
