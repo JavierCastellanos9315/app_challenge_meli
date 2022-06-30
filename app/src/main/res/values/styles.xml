@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Estilo input buscar -->
+    <style name="InputSearch">
+        <item name="android:background">@drawable/style_input_search</item>
+        <item name="android:hint">@string/hint_search</item>
+        <item name="android:textSize">@dimen/textSearch</item>
+        <item name="android:paddingLeft">@dimen/padding_default</item>
+        <item name="android:paddingRight">@dimen/padding_default</item>
+    </style>
+    <!-- Estilo botoon buscar -->
+    <style name="BotonBuscar" parent="Widget.AppCompat.ImageButton">
+    </style>
+</resources>

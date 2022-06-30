@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_input_search">44dp</dimen>
+    <dimen name="textSearch">18dp</dimen>
+    <dimen name="padding_default">12dp</dimen>
+</resources>
