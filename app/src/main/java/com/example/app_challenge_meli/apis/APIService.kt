@@ -25,7 +25,7 @@ interface APIService {
      **/
     @GET("/items/{ITEM_ID}/description")
     suspend fun getDescriptionByProductId(
-        @Path("ITEM_ID") item_id: String
+        @Path("ITEM_ID") item_id: String?
     ): Response<Description>
 
     /**
@@ -34,6 +34,6 @@ interface APIService {
      **/
     @GET("/items/{ITEM_ID}")
     suspend fun getItemByProductId(
-        @Path("ITEM_ID") item_id: String
+        @Path("ITEM_ID") item_id: String?
     ): Response<Item>
 }

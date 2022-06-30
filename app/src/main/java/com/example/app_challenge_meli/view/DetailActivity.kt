@@ -10,6 +10,7 @@ import com.example.app_challenge_meli.convertPrice
 import com.example.app_challenge_meli.databinding.ActivityDetailBinding
 import com.example.app_challenge_meli.isNetworkAvailable
 import com.example.app_challenge_meli.loadUrl
+import com.example.app_challenge_meli.PARAMETRO_ID
 import com.example.app_challenge_meli.viewmodels.DetailViewModel
 class DetailActivity : AppCompatActivity() {
 
@@ -23,27 +24,30 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if(isNetworkAvailable(this)){
-            detailViewModel.getProductInfo(intent.getStringExtra("ID"))
-            detailViewModel.getDescription(intent.getStringExtra("ID"))
+            detailViewModel.getProductInfo(intent.getStringExtra(PARAMETRO_ID))
+            detailViewModel.getDescription(intent.getStringExtra(PARAMETRO_ID))
             binding.recyclerCaracteristicas.adapter = adapter
-
-            detailViewModel.state.observe(this){state ->
-                with(binding) {
-                    progress.visibility = if (state.loading) View.VISIBLE else View.GONE
-                    lyMain.visibility = if (!state.loading) View.VISIBLE else View.GONE
-
-                    state.item?.attributes?.let {
-                        adapter.attributes = it
-                        adapter.notifyDataSetChanged()
-                    }
-                    state?.item?.pictures?.get(0)?.secureUrl?.let { thumb.loadUrl(it) }
-                    state?.item?.price?.let { txtPrecio.text = convertPrice(it) }
-                    state?.description?.plainText?.let { txtDescripcionProd.text = it }
-                }
-            }
+            configObserver()
         } else {
             Toast.makeText(applicationContext,"this is toast message", Toast.LENGTH_SHORT).show()
         }
         binding.imgAtras.setOnClickListener { finish() }
+    }
+
+    private fun configObserver() {
+        detailViewModel.state.observe(this) { state ->
+            with(binding) {
+                progress.visibility = if (state.loading) View.VISIBLE else View.GONE
+                lyMain.visibility = if (!state.loading) View.VISIBLE else View.GONE
+
+                state.item?.attributes?.let {
+                    adapter.attributes = it
+                    adapter.notifyDataSetChanged()
+                }
+                state?.item?.pictures?.get(0)?.secureUrl?.let { thumb.loadUrl(it) }
+                state?.item?.price?.let { txtPrecio.text = convertPrice(it) }
+                state?.description?.plainText?.let { txtDescripcionProd.text = it }
+            }
+        }
     }
 }

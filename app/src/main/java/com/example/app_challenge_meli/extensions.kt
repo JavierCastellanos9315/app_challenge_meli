@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,11 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.text.NumberFormat
 import java.util.*
-
-val Fragment.supportActionBar: ActionBar?
-    get() = (activity as? AppCompatActivity)?.supportActionBar
-
+val PARAMETRO_ID : String = "ID"
+val BASE_URL : String = "ID"
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
@@ -27,7 +27,14 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): 
  * @param url
  **/
 fun ImageView.loadUrl(url: String) {
-    Glide.with(this).load(url).into(this)
+    try {
+        Glide.with(this).load(url).into(this)
+    }catch (e : Exception){
+        Log.e("Error", "loadUrl ($url) ")
+        FirebaseCrashlytics.getInstance().recordException(e)
+        FirebaseCrashlytics.getInstance().log(e.message.toString())
+    }
+
 }
 /**
  * Convierte valor double en moneda Colombiana

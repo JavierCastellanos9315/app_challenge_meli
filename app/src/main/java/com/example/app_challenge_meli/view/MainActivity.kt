@@ -8,11 +8,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
+import com.example.app_challenge_meli.R
 import com.example.app_challenge_meli.adapters.ProductsAdapter
 import com.example.app_challenge_meli.databinding.ActivityMainBinding
 import com.example.app_challenge_meli.isNetworkAvailable
+import com.example.app_challenge_meli.PARAMETRO_ID
 import com.example.app_challenge_meli.viewmodels.ProductViewModel
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val productViewModel: ProductViewModel by viewModels()
+
+    private var isFirstTime : Boolean = true
 
     private val adapter = ProductsAdapter {
         productViewModel.onProductClicked(it)
@@ -33,29 +36,18 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener(btnSearch)
 
         binding.edtSearch.setOnEditorActionListener(edtSearchListener)
+        binding.lyMensajeError.lyButtonActualizar.setOnClickListener(btnSearch)
+        configObServable()
+        FirebaseCrashlytics.getInstance().checkForUnsentReports()
+    }
 
-        productViewModel.state.observe(this){ state ->
-            binding.progress.visibility = if (state.loading) View.VISIBLE else View.GONE
-            state.products?.let {
-                adapter.products = it
-                adapter.notifyDataSetChanged()
-                if(adapter.products.isEmpty()){
-                    binding.cardMsg.visibility = View.VISIBLE
-                    binding.recycler.visibility = View.GONE
-                } else {
-                    binding.recycler.visibility = View.VISIBLE
-                    binding.cardMsg.visibility = View.GONE
-                }
-            }
-            state.navigateTo?.let {
-                val intent : Intent = Intent (this, DetailActivity::class.java).apply {
-                    putExtra("ID",it.id)
-                }
-                startActivity(intent)
-            }
-        }
-
-
+    /**
+     * Cambia el mensaje de error a mostrar
+     **/
+    fun setMessageError(isVisibleButton : Boolean, text : String, imgResource : Int ){
+        binding.lyMensajeError.lyButtonActualizar.visibility = if (isVisibleButton) View.VISIBLE else View.GONE
+        binding.lyMensajeError.txtMensajeAlerta.text = text
+        binding.lyMensajeError.imgAlerta.setImageResource(imgResource)
     }
 
     override fun onResume() {
@@ -73,10 +65,12 @@ class MainActivity : AppCompatActivity() {
         }
         false
     }
+
     /**
      * Llama al viewModel para obtener datos de los productos relacionados a la busqueda
      **/
     val btnSearch =  View.OnClickListener{ v->
+        isFirstTime = false
         binding.button.isEnabled = false
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
@@ -84,12 +78,67 @@ class MainActivity : AppCompatActivity() {
             productViewModel.getProducts(binding.edtSearch.text.toString())
             binding.recycler.adapter = adapter
         } else {
-            Toast.makeText(applicationContext,"this is toast message", Toast.LENGTH_SHORT).show()
+            binding.recycler.visibility = View.GONE
+            binding.lyMensajeError.root.visibility =  View.VISIBLE
+
+            setMessageError(true,
+                R.string.error_internet.toString(),
+                R.drawable.signal_off)
         }
         binding.button.isEnabled = true
-        FirebaseCrashlytics.getInstance().checkForUnsentReports()
-
     }
 
+    /**
+     * Se configura el observador
+     **/
+    fun configObServable (){
+        productViewModel.state.observe(this){ state ->
+            binding.progress.visibility = if (state.loading) View.VISIBLE else View.GONE
+            state.products?.let {
+                adapter.products = state.products
+                adapter.notifyDataSetChanged()
+                if (adapter.products.isEmpty() && state.isSuccess) {
+                    binding.recycler.visibility = View.GONE
+                    binding.lyMensajeError.root.visibility = View.VISIBLE
+                    setMessageError(
+                        false,
+                        R.string.empty_search.toString(),
+                        R.drawable.ic_search_off
+                    )
+                } else if (state.isSuccess) {
+                    binding.recycler.visibility = View.VISIBLE
+                    binding.lyMensajeError.root.visibility = View.GONE
+                } else {
+                    binding.recycler.visibility = View.GONE
+                    binding.lyMensajeError.root.visibility = View.VISIBLE
+                    setMessageError(
+                        true,
+                        R.string.error_service.toString(),
+                        R.drawable.error_service
+                    )
+                }
+            }
+            if(state.products == null && !state.isSuccess && !isFirstTime){
+                binding.recycler.visibility = View.GONE
+                binding.lyMensajeError.root.visibility = View.VISIBLE
+                setMessageError(
+                    true,
+                    R.string.error_service.toString(),
+                    R.drawable.error_service
+                )
+            }
+            if(isFirstTime){
+                binding.recycler.visibility = View.VISIBLE
+                binding.lyMensajeError.root.visibility = View.GONE
+            }
+
+            state.navigateTo?.let {
+                val intent : Intent = Intent (this, DetailActivity::class.java).apply {
+                    putExtra(PARAMETRO_ID,it.id)
+                }
+                startActivity(intent)
+            }
+        }
+    }
 
 }

@@ -35,8 +35,7 @@ class ProductsAdapter (var products: List<Producto> = emptyList(), private val l
         fun bind(product: Producto) {
             binding.title.text = product.title
             product.thumbnail?.let { binding.thumb.loadUrl(it) }
-            binding.txtPrice.text = product.price?.let { convertPrice(it.toDouble()) }
-            //binding.favorite.setImageResource(if (product.favorite) R.drawable.ic_favorite else 0)
+            binding.txtPrice.text = product.price?.let { convertPrice(it) }
         }
     }
 

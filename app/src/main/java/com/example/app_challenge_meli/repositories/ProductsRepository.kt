@@ -47,9 +47,14 @@ class ProductsRepository {
     suspend fun getProductDescriptionById(item_id : String?){
         try {
             repository.getDescriptionByProductId(item_id).also {
-                _description.value = it }
+                _description.value = it.body()
+                _isSucces.value = ( it.raw().code != null && it.raw().code == 200)
+            }
         }
         catch (e: Exception){
+            FirebaseCrashlytics.getInstance().recordException(e)
+            FirebaseCrashlytics.getInstance().log(e.message.toString())
+            Log.e("Error", "getProductDescriptionById($item_id) ")
         }
     }
 
@@ -60,10 +65,14 @@ class ProductsRepository {
     suspend fun getItemByProductId(item_id : String?){
         try {
             repository.getItemByProductId(item_id).also {
-                _item.value = it
+                _item.value = it.body()
+                _isSucces.value = ( it.raw().code != null && it.raw().code == 200)
             }
         }
         catch (e: Exception){
+            FirebaseCrashlytics.getInstance().recordException(e)
+            FirebaseCrashlytics.getInstance().log(e.message.toString())
+            Log.e("Error", "getItemByProductId($item_id) ")
         }
 
     }
