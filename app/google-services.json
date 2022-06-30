@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236589251481",
+    "project_id": "pruebameli-d4a9a",
+    "storage_bucket": "pruebameli-d4a9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236589251481:android:ab9d41d031a5573fd83108",
+        "android_client_info": {
+          "package_name": "com.example.app_challenge_meli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236589251481-5feq8qruqng2q1v2l97d8j1a6bfpcjcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpII7kTnvFfLgBMaSfHwhEAPRqwhVonHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236589251481-5feq8qruqng2q1v2l97d8j1a6bfpcjcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
