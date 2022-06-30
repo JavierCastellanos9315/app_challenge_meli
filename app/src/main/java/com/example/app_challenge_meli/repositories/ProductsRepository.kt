@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.app_challenge_meli.model.search.Search
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class ProductsRepository {
     var repository = ProductsRemoteData()
@@ -19,6 +20,8 @@ class ProductsRepository {
             repository.getAllProducts(query).also { _searchByQuery.value = it }
         }
         catch (e: Exception){
+            FirebaseCrashlytics.getInstance().recordException(e)
+            FirebaseCrashlytics.getInstance().log(e.message.toString())
             Log.e("Error", "getProductsByQuery($query) ")
         }
     }

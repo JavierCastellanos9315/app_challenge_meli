@@ -13,6 +13,7 @@ import com.example.app_challenge_meli.adapters.ProductsAdapter
 import com.example.app_challenge_meli.databinding.ActivityMainBinding
 import com.example.app_challenge_meli.isNetworkAvailable
 import com.example.app_challenge_meli.viewmodels.ProductViewModel
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext,"this is toast message", Toast.LENGTH_SHORT).show()
         }
         binding.button.isEnabled = true
+        FirebaseCrashlytics.getInstance().checkForUnsentReports()
 
     }
 

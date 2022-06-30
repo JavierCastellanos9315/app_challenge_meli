@@ -3,6 +3,7 @@ package com.example.app_challenge_meli.repositories
 import android.util.Log
 import com.example.app_challenge_meli.apis.RetrofitHelper
 import com.example.app_challenge_meli.model.search.Search
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class ProductsRemoteData {
 
@@ -17,6 +18,8 @@ class ProductsRemoteData {
             return search
         }
         catch (e: Exception){
+            FirebaseCrashlytics.getInstance().recordException(e)
+            FirebaseCrashlytics.getInstance().log(e.message.toString())
             Log.e("Error", "getAllProducts($query) ")
         }
         return  Search()
