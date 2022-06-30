@@ -1,6 +1,7 @@
 package com.example.app_challenge_meli.view
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -47,7 +48,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             state.navigateTo?.let {
-                //TODO acción al hacer click en producto
+                val intent : Intent = Intent (this, DetailActivity::class.java).apply {
+                    putExtra("ID",it.id)
+                }
+                startActivity(intent)
             }
         }
 
