@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if(isNetworkAvailable(this)){
-            detailViewModel.onCreate(intent.getStringExtra("ID"))
+            detailViewModel.getProductInfo(intent.getStringExtra("ID"))
             detailViewModel.getDescription(intent.getStringExtra("ID"))
             binding.recyclerCaracteristicas.adapter = adapter
 

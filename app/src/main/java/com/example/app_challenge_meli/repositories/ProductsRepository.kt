@@ -13,6 +13,9 @@ class ProductsRepository {
     private var _searchByQuery  = MediatorLiveData<Search>()
     val searchByQuery: LiveData<Search> get() = _searchByQuery
 
+    private var _isSucces  = MediatorLiveData<Boolean>()
+    val isSucces: LiveData<Boolean> get() = _isSucces
+
     private var _description  = MediatorLiveData<Description>()
     val descriptionById: LiveData<Description> get() = _description
 
@@ -25,7 +28,10 @@ class ProductsRepository {
      **/
     suspend fun getProductsByQuery(query : String?) {
         try {
-            repository.getAllProducts(query).also { _searchByQuery.value = it }
+            repository.getAllProducts(query).also {
+                _searchByQuery.value = it.body()
+                _isSucces.value = ( it.raw().code != null && it.raw().code == 200)
+            }
         }
         catch (e: Exception){
             FirebaseCrashlytics.getInstance().recordException(e)
@@ -34,6 +40,10 @@ class ProductsRepository {
         }
     }
 
+    /**
+     * Obtiene descripción del producto
+     * @param item_id
+     **/
     suspend fun getProductDescriptionById(item_id : String?){
         try {
             repository.getDescriptionByProductId(item_id).also {
@@ -43,6 +53,10 @@ class ProductsRepository {
         }
     }
 
+    /**
+     * Obtiene informacion del producto
+     * @param item_id
+     **/
     suspend fun getItemByProductId(item_id : String?){
         try {
             repository.getItemByProductId(item_id).also {

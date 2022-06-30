@@ -19,11 +19,19 @@ interface APIService {
         @Query("q") q: String?
     ): Response<Search>
 
+    /**
+     * Obtiene descripción del producto
+     * @param item_id
+     **/
     @GET("/items/{ITEM_ID}/description")
     suspend fun getDescriptionByProductId(
         @Path("ITEM_ID") item_id: String
     ): Response<Description>
 
+    /**
+     * Obtiene informacion del producto
+     * @param item_id
+     **/
     @GET("/items/{ITEM_ID}")
     suspend fun getItemByProductId(
         @Path("ITEM_ID") item_id: String

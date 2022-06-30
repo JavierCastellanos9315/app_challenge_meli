@@ -43,7 +43,8 @@ class ProductViewModel : ViewModel(){
                 FirebaseCrashlytics.getInstance().log(e.message.toString())
                 Log.e("Error", "getProduct($query) ")
             }
-            _state.value = state.value?.copy(products = productsRepository.searchByQuery.value?.results)
+            _state.value = state.value?.copy(products = productsRepository.searchByQuery.value?.results,
+                isSuccess = (productsRepository.isSucces.value != null && productsRepository.isSucces.value == true))
             _localState.value = _localState.value?.copy(loading = false)
         }
     }
@@ -59,5 +60,6 @@ class ProductViewModel : ViewModel(){
         val loading: Boolean = false,
         val products: ArrayList<Producto>? = null,
         val navigateTo: Producto? = null,
+        val isSuccess: Boolean = true
     )
 }

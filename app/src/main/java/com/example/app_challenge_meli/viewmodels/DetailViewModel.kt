@@ -24,20 +24,27 @@ class DetailViewModel : ViewModel() {
     init {
         _state.addSource(_localState) { _state.value = it }
     }
-    fun onCreate(itemId: String?){
+
+    /**
+     * Obtiene informacion del producto y los guarda en state
+     * @param item_id
+     **/
+    fun getProductInfo(itemId: String?){
         uiScope.launch {
             _localState.value = _localState.value?.copy(loading = true)
             itemId?.let {
                 productsRepository.getItemByProductId(it)
             }
             _state.value = state.value?.copy(item = productsRepository.item.value)
-            _localState.value = _localState.value?.copy(loading = false)
         }
     }
 
+    /**
+     * Obtiene descripción del producto y los guarda en state
+     * @param item_id
+     **/
     fun getDescription(itemId : String?){
         uiScope.launch {
-            _localState.value = _localState.value?.copy(loading = true)
             itemId?.let {
                 productsRepository.getProductDescriptionById(it)
             }
