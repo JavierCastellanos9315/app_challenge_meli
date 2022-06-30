@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".views.MainActivity">
+    tools:context=".view.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,38 +49,23 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="2dp"
-            android:layout_marginTop="15dp"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="gone"
-            app:cardElevation="6dp">
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:layout_marginTop="15dp"
+                android:padding="2dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No hay productos en su busqueda, prueba poniendo otras palabas" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <include
+            android:id="@+id/ly_mensaje_error"
+            layout="@layout/view_mensaje_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
     </LinearLayout>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
