@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:padding="@dimen/padding_2">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBuscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="@dimen/margin_2"
+        android:layout_marginTop="@dimen/margin_2"
+        android:layout_marginEnd="@dimen/margin_2"
+        android:layout_marginBottom="@dimen/margin_2"
         app:cardElevation="6dp">
 
         <LinearLayout
@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/thumb"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/heigh_img"
                 android:scaleType="fitCenter"
                 android:src="@drawable/no_disponible" />
 
@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:lines="2"
                 android:ellipsize="end"
-                android:padding="8dp"
+                android:padding="@dimen/padding_8"
                 android:textAlignment="center"
                 android:textColor="@color/black"/>
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:lines="1"
-                android:padding="8dp"
+                android:padding="@dimen/padding_8"
                 android:textAlignment="center"
                 android:textColor="@color/black" />
         </LinearLayout>

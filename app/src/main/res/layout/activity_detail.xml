@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.DetailActivity">
+    tools:context=".view.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -15,14 +15,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
-            android:padding="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            android:layout_height="?android:attr/actionBarSize">
 
             <RelativeLayout
                 android:id="@+id/main_toolbar"
@@ -38,7 +31,7 @@
                     android:gravity="center"
                     android:text="@string/detalle_producto"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/text_title" />
 
                 <ImageView
                     android:id="@+id/img_atras"
@@ -69,7 +62,7 @@
                 <ImageView
                     android:id="@+id/thumb"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="@dimen/heigh_img"
                     android:scaleType="fitCenter"
                     android:src="@drawable/no_disponible" />
 
@@ -77,31 +70,31 @@
                     android:id="@+id/txt_precio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="30dp"/>
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:textSize="@dimen/precio_descripcion_text"/>
 
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardElevation="6dp">
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    app:cardElevation="@dimen/elevation_6">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/txt_caracteristicas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Caracteristicas:"
-                            android:textSize="@dimen/textSearch"></TextView>
+                            android:text="@string/caracteristica"
+                            android:textSize="@dimen/text_title"></TextView>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_caracteristicas"
@@ -115,33 +108,33 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="15dp"
-                    app:cardElevation="6dp">
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_15"
+                    app:cardElevation="@dimen/elevation_6">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/txt_descripcion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="Descripción:"
-                            android:textSize="@dimen/textSearch"></TextView>
+                            android:layout_marginTop="@dimen/margin_20"
+                            android:text="@string/descripcion"
+                            android:textSize="@dimen/text_title"></TextView>
 
                         <TextView
                             android:id="@+id/txt_descripcion_prod"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"></TextView>
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_marginBottom="@dimen/margin_10"></TextView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -152,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminate="true"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </FrameLayout>
     </ScrollView>
 </LinearLayout>

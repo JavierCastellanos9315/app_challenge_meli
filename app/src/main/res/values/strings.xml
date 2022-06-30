@@ -3,4 +3,9 @@
     <string name="hint_search">Buscar en Mercado Libre</string>
     <string name="detalle_producto">Detalle Producto</string>
     <string name="actualizar">Actualizar</string>
+    <string name="error_service">Estamos teniendo problemas con nuestros servicios</string>
+    <string name="empty_search">No hay productos en su busqueda, prueba poniendo otras palabras</string>
+    <string name="error_internet">Verifica la conexión a internet e inténtalo nuevamente.</string>
+    <string name="caracteristica">Caracteristicas:</string>
+    <string name="descripcion">Descripción:</string>
 </resources>
