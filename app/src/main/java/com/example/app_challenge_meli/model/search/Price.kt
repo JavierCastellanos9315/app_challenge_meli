@@ -1,7 +1,7 @@
 package com.example.app_challenge_meli.model.search
 
 data class Price(
-    var amount: Int? = 0,
+    var amount: Double? = 0.0,
     var conditions: Conditions? = Conditions(),
     var currency_id: String? = "",
     var exchange_rate_context: String? = "",
