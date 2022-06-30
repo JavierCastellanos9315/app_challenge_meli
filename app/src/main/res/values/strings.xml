@@ -2,4 +2,5 @@
     <string name="app_name">app_challenge_meli</string>
     <string name="hint_search">Buscar en Mercado Libre</string>
     <string name="detalle_producto">Detalle Producto</string>
+    <string name="actualizar">Actualizar</string>
 </resources>
