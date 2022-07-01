@@ -49,16 +49,18 @@ class DetailActivity : AppCompatActivity() {
                     state?.item?.pictures?.get(0)?.secureUrl?.let { thumb.loadUrl(it) }
                     state?.item?.price?.let { txtPrecio.text = convertPrice(it) }
                     state?.description?.plainText?.let { txtDescripcionProd.text = it }
-                } else {//if ((state.item != null && !state.isSuccess)|| (state.description != null && !state.isSuccess) ){
-                    binding.lyMain.visibility = View.GONE
-                    binding.lyMensajeError.root.visibility = View.VISIBLE
-                    centerMainLayout(true)
-                    setMessageError(
-                        true,
-                        getString(R.string.error_service),
-                        getString(R.string.titulo_lo_sentimos),
-                        R.drawable.error_service
-                    )
+                } else {
+                    if (!state.isSuccess){
+                        binding.lyMain.visibility = View.GONE
+                        binding.lyMensajeError.root.visibility = View.VISIBLE
+                        centerMainLayout(true)
+                        setMessageError(
+                            true,
+                            getString(R.string.error_service),
+                            getString(R.string.titulo_lo_sentimos),
+                            R.drawable.error_service
+                        )
+                    }
                 }
             }
         }
