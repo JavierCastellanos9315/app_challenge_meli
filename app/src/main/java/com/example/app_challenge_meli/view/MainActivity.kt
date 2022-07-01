@@ -2,18 +2,18 @@ package com.example.app_challenge_meli.view
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.example.app_challenge_meli.PARAMETRO_ID
 import com.example.app_challenge_meli.R
 import com.example.app_challenge_meli.adapters.ProductsAdapter
 import com.example.app_challenge_meli.databinding.ActivityMainBinding
 import com.example.app_challenge_meli.isNetworkAvailable
-import com.example.app_challenge_meli.PARAMETRO_ID
 import com.example.app_challenge_meli.viewmodels.ProductViewModel
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener(btnSearch)
 
         binding.edtSearch.setOnEditorActionListener(edtSearchListener)
-        binding.lyMensajeError.lyButtonActualizar.setOnClickListener(btnSearch)
+        binding.lyMensajeError.btnRefresh.setOnClickListener(btnSearch)
         configObServable()
         FirebaseCrashlytics.getInstance().checkForUnsentReports()
     }
@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity() {
     /**
      * Cambia el mensaje de error a mostrar
      **/
-    fun setMessageError(isVisibleButton : Boolean, text : String, imgResource : Int ){
+    fun setMessageError(isVisibleButton : Boolean, text : String,titulo : String, imgResource : Int ){
         binding.lyMensajeError.lyButtonActualizar.visibility = if (isVisibleButton) View.VISIBLE else View.GONE
+        binding.lyMensajeError.txtTituloAlerta.text = titulo
         binding.lyMensajeError.txtMensajeAlerta.text = text
         binding.lyMensajeError.imgAlerta.setImageResource(imgResource)
     }
@@ -82,7 +83,8 @@ class MainActivity : AppCompatActivity() {
             binding.lyMensajeError.root.visibility =  View.VISIBLE
 
             setMessageError(true,
-                R.string.error_internet.toString(),
+                getString(R.string.error_internet),
+                getString(R.string.titulo_error_internet),
                 R.drawable.signal_off)
         }
         binding.button.isEnabled = true
@@ -102,7 +104,8 @@ class MainActivity : AppCompatActivity() {
                     binding.lyMensajeError.root.visibility = View.VISIBLE
                     setMessageError(
                         false,
-                        R.string.empty_search.toString(),
+                        getString(R.string.empty_search),
+                        getString(R.string.titulo_lo_sentimos),
                         R.drawable.ic_search_off
                     )
                 } else if (state.isSuccess) {
@@ -113,7 +116,8 @@ class MainActivity : AppCompatActivity() {
                     binding.lyMensajeError.root.visibility = View.VISIBLE
                     setMessageError(
                         true,
-                        R.string.error_service.toString(),
+                        getString(R.string.error_service),
+                        getString(R.string.titulo_lo_sentimos),
                         R.drawable.error_service
                     )
                 }
@@ -123,7 +127,8 @@ class MainActivity : AppCompatActivity() {
                 binding.lyMensajeError.root.visibility = View.VISIBLE
                 setMessageError(
                     true,
-                    R.string.error_service.toString(),
+                    getString(R.string.error_service),
+                    getString(R.string.titulo_lo_sentimos),
                     R.drawable.error_service
                 )
             }

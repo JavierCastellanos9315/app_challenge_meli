@@ -8,4 +8,6 @@
     <string name="error_internet">Verifica la conexión a internet e inténtalo nuevamente.</string>
     <string name="caracteristica">Caracteristicas:</string>
     <string name="descripcion">Descripción:</string>
+    <string name="titulo_error_internet">No hay acceso a internet</string>
+    <string name="titulo_lo_sentimos">Lo sentimos</string>
 </resources>

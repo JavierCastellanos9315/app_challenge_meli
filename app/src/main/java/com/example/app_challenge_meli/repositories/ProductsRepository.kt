@@ -48,7 +48,9 @@ class ProductsRepository {
         try {
             repository.getDescriptionByProductId(item_id).also {
                 _description.value = it.body()
-                _isSucces.value = ( it.raw().code != null && it.raw().code == 200)
+                if(_isSucces.value == null || _isSucces.value != false ) {
+                    _isSucces.value = (it.raw().code != null && it.raw().code == 200)
+                }
             }
         }
         catch (e: Exception){
@@ -66,7 +68,9 @@ class ProductsRepository {
         try {
             repository.getItemByProductId(item_id).also {
                 _item.value = it.body()
-                _isSucces.value = ( it.raw().code != null && it.raw().code == 200)
+                if(_isSucces.value == null || _isSucces.value != false ) {
+                    _isSucces.value = (it.raw().code != null && it.raw().code == 200)
+                }
             }
         }
         catch (e: Exception){

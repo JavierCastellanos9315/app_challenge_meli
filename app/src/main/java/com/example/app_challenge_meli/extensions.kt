@@ -18,7 +18,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.text.NumberFormat
 import java.util.*
 val PARAMETRO_ID : String = "ID"
-val BASE_URL : String = "ID"
+val BASE_URL : String = "https://api.mercadolibre.com"
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 

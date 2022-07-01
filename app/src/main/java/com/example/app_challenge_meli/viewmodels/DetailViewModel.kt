@@ -17,7 +17,7 @@ class DetailViewModel : ViewModel() {
     private val viewModelJob = SupervisorJob()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val _state = MediatorLiveData<UIState>()
-    var productsRepository : ProductsRepository = ProductsRepository()
+    var productsRepository: ProductsRepository = ProductsRepository()
     val state: LiveData<UIState> get() = _state
     private val _localState = MutableLiveData(UIState())
 
@@ -29,13 +29,9 @@ class DetailViewModel : ViewModel() {
      * Obtiene informacion del producto y los guarda en state
      * @param item_id
      **/
-    fun getProductInfo(itemId: String?){
-        uiScope.launch {
-            _localState.value = _localState.value?.copy(loading = true)
-            itemId?.let {
-                productsRepository.getItemByProductId(it)
-            }
-            _state.value = state.value?.copy(item = productsRepository.item.value)
+    private suspend fun getProductInfo(itemId: String?) {
+        itemId?.let {
+            productsRepository.getItemByProductId(it)
         }
     }
 
@@ -43,19 +39,32 @@ class DetailViewModel : ViewModel() {
      * Obtiene descripción del producto y los guarda en state
      * @param item_id
      **/
-    fun getDescription(itemId : String?){
+    private suspend fun getDescription(itemId: String?) {
+        itemId?.let {
+            productsRepository.getProductDescriptionById(it)
+        }
+    }
+
+    fun getData(itemId: String?) {
         uiScope.launch {
-            itemId?.let {
-                productsRepository.getProductDescriptionById(it)
-            }
-            _state.value = state.value?.copy(description = productsRepository.descriptionById.value)
+            _localState.value = _localState.value?.copy(loading = true)
+            getDescription(itemId)
+            getProductInfo(itemId)
+            _state.value = state.value?.copy(
+                item = productsRepository.item.value,
+                description = productsRepository.descriptionById.value,
+                isSuccess = (productsRepository.isSucces.value != null && productsRepository.isSucces.value == true)
+            )
             _localState.value = _localState.value?.copy(loading = false)
         }
+
+
     }
 
     data class UIState(
         val loading: Boolean = false,
         val item: Item? = null,
-        val description: Description? = null
+        val description: Description? = null,
+        val isSuccess : Boolean = true
     )
 }
