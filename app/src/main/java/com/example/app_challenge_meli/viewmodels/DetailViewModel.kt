@@ -45,6 +45,9 @@ class DetailViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Obtiene información y descripcion de un producto
+     **/
     fun getData(itemId: String?) {
         uiScope.launch {
             _localState.value = _localState.value?.copy(loading = true)

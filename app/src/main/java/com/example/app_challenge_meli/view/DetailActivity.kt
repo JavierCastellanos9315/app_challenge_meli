@@ -64,6 +64,9 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Centra el layout principa
+     **/
     private fun centerMainLayout(isCenter: Boolean) {
         val params = binding.lyMainScroll.getLayoutParams() as FrameLayout.LayoutParams
         params.gravity = if (isCenter) Gravity.CENTER else -1
@@ -80,6 +83,9 @@ class DetailActivity : AppCompatActivity() {
         binding.lyMensajeError.imgAlerta.setImageResource(imgResource)
     }
 
+    /**
+     * obtiene información del item
+     **/
     fun getInfoItem(){
         if(isNetworkAvailable(this)){
             detailViewModel.getData(intent.getStringExtra(PARAMETRO_ID))
