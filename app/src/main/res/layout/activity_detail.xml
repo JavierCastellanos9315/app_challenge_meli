@@ -48,7 +48,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_15">
         <FrameLayout
             android:id="@+id/ly_main_scroll"
             android:layout_width="match_parent"
@@ -60,6 +61,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/txt_titulo_producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:textSize="@dimen/precio_descripcion_text">
+
+                </TextView>
 
                 <ImageView
                     android:id="@+id/thumb"

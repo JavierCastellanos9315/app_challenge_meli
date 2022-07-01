@@ -5,7 +5,9 @@
         <item name="android:background">@drawable/style_input_search</item>
         <item name="android:hint">@string/hint_search</item>
         <item name="android:textSize">@dimen/textSearch</item>
-        <item name="android:paddingLeft">@dimen/padding_default</item>
+        <item name="android:paddingStart">@dimen/padding_default</item>
+        <item name="android:paddingTop">@dimen/padding_8</item>
+        <item name="android:paddingBottom">@dimen/padding_8</item>
         <item name="android:paddingRight">@dimen/padding_default</item>
     </style>
     <!-- Estilo botoon buscar -->
