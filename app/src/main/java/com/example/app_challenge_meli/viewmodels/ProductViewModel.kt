@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.app_challenge_meli.model.search.Producto
 import com.example.app_challenge_meli.repositories.ProductsRepository
+import com.example.app_challenge_meli.sendError
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,9 +40,7 @@ class ProductViewModel : ViewModel(){
                 productsRepository.getProductsByQuery(query)
             }
             catch (e: Exception){
-                FirebaseCrashlytics.getInstance().recordException(e)
-                FirebaseCrashlytics.getInstance().log(e.message.toString())
-                Log.e("Error", "getProduct($query) ")
+                sendError(e, "getProducts", query)
             }
             _state.value = state.value?.copy(products = productsRepository.searchByQuery.value?.results,
                 isSuccess = (productsRepository.isSucces.value != null && productsRepository.isSucces.value == true))

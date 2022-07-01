@@ -30,9 +30,7 @@ fun ImageView.loadUrl(url: String) {
     try {
         Glide.with(this).load(url).into(this)
     }catch (e : Exception){
-        Log.e("Error", "loadUrl ($url) ")
-        FirebaseCrashlytics.getInstance().recordException(e)
-        FirebaseCrashlytics.getInstance().log(e.message.toString())
+        sendError(e,"loadUrl", url)
     }
 
 }
@@ -77,4 +75,15 @@ fun isNetworkAvailable(context: Context?): Boolean {
         }
     }
     return false
+}
+/**
+ * Envia un error a crashlytics y al log
+ * @param e Excepcion
+ * @param where nombre del metodo donde ocurrio el error
+ * @param parameter parametro que entraba a la funcion
+ **/
+fun sendError(e:Exception , where : String, parameter : String){
+    Log.e("Error", "$where ($parameter) ")
+    FirebaseCrashlytics.getInstance().recordException(e)
+    FirebaseCrashlytics.getInstance().log(e.message.toString())
 }

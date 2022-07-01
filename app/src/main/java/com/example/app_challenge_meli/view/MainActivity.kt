@@ -99,30 +99,36 @@ class MainActivity : AppCompatActivity() {
             state.products?.let {
                 adapter.products = state.products
                 adapter.notifyDataSetChanged()
-                if (adapter.products.isEmpty() && state.isSuccess) {
-                    binding.recycler.visibility = View.GONE
-                    binding.lyMensajeError.root.visibility = View.VISIBLE
-                    setMessageError(
-                        false,
-                        getString(R.string.empty_search),
-                        getString(R.string.titulo_lo_sentimos),
-                        R.drawable.ic_search_off
-                    )
-                } else if (state.isSuccess) {
-                    binding.recycler.visibility = View.VISIBLE
-                    binding.lyMensajeError.root.visibility = View.GONE
-                } else {
-                    binding.recycler.visibility = View.GONE
-                    binding.lyMensajeError.root.visibility = View.VISIBLE
-                    setMessageError(
-                        true,
-                        getString(R.string.error_service),
-                        getString(R.string.titulo_lo_sentimos),
-                        R.drawable.error_service
-                    )
-                }
+
             }
-            if(state.products == null && !state.isSuccess && !isFirstTime){
+            showCorrectView(state)
+            state.navigateTo?.let {
+                val intent : Intent = Intent (this, DetailActivity::class.java).apply {
+                    putExtra(PARAMETRO_ID,it.id)
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Se muestra la vista correspondiente si tiene mensajes de error o el resultado de busqueda
+     **/
+    fun showCorrectView(state : ProductViewModel.UIState ){
+        if(state.products != null) {
+            if (adapter.products.isEmpty() && state.isSuccess) {
+                binding.recycler.visibility = View.GONE
+                binding.lyMensajeError.root.visibility = View.VISIBLE
+                setMessageError(
+                    false,
+                    getString(R.string.empty_search),
+                    getString(R.string.titulo_lo_sentimos),
+                    R.drawable.ic_search_off
+                )
+            } else if (state.isSuccess) {
+                binding.recycler.visibility = View.VISIBLE
+                binding.lyMensajeError.root.visibility = View.GONE
+            } else {
                 binding.recycler.visibility = View.GONE
                 binding.lyMensajeError.root.visibility = View.VISIBLE
                 setMessageError(
@@ -132,17 +138,19 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.error_service
                 )
             }
-            if(isFirstTime){
-                binding.recycler.visibility = View.VISIBLE
-                binding.lyMensajeError.root.visibility = View.GONE
-            }
-
-            state.navigateTo?.let {
-                val intent : Intent = Intent (this, DetailActivity::class.java).apply {
-                    putExtra(PARAMETRO_ID,it.id)
-                }
-                startActivity(intent)
-            }
+        } else if(state.products == null && !state.isSuccess && !isFirstTime){
+            binding.recycler.visibility = View.GONE
+            binding.lyMensajeError.root.visibility = View.VISIBLE
+            setMessageError(
+                true,
+                getString(R.string.error_service),
+                getString(R.string.titulo_lo_sentimos),
+                R.drawable.error_service
+            )
+        }
+        if(isFirstTime){
+            binding.recycler.visibility = View.VISIBLE
+            binding.lyMensajeError.root.visibility = View.GONE
         }
     }
 

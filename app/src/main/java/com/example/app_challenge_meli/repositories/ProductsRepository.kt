@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import com.example.app_challenge_meli.model.description.Description
 import com.example.app_challenge_meli.model.item.Item
 import com.example.app_challenge_meli.model.search.Search
+import com.example.app_challenge_meli.sendError
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class ProductsRepository {
@@ -34,9 +35,7 @@ class ProductsRepository {
             }
         }
         catch (e: Exception){
-            FirebaseCrashlytics.getInstance().recordException(e)
-            FirebaseCrashlytics.getInstance().log(e.message.toString())
-            Log.e("Error", "getProductsByQuery($query) ")
+            sendError(e, "getProductsByQuery", query!!)
         }
     }
 
@@ -54,9 +53,7 @@ class ProductsRepository {
             }
         }
         catch (e: Exception){
-            FirebaseCrashlytics.getInstance().recordException(e)
-            FirebaseCrashlytics.getInstance().log(e.message.toString())
-            Log.e("Error", "getProductDescriptionById($item_id) ")
+            sendError(e, "getProductDescriptionById", item_id!!)
         }
     }
 
@@ -74,9 +71,7 @@ class ProductsRepository {
             }
         }
         catch (e: Exception){
-            FirebaseCrashlytics.getInstance().recordException(e)
-            FirebaseCrashlytics.getInstance().log(e.message.toString())
-            Log.e("Error", "getItemByProductId($item_id) ")
+            sendError(e, "getItemByProductId", item_id!!)
         }
 
     }
