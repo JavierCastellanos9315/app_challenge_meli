@@ -51,8 +51,8 @@ class DetailActivity : AppCompatActivity() {
                     state?.description?.plainText?.let { txtDescripcionProd.text = it }
                 } else {
                     if (!state.isSuccess){
-                        binding.lyMain.visibility = View.GONE
-                        binding.lyMensajeError.root.visibility = View.VISIBLE
+                        lyMain.visibility = View.GONE
+                        lyMensajeError.root.visibility = View.VISIBLE
                         centerMainLayout(true)
                         setMessageError(
                             true,

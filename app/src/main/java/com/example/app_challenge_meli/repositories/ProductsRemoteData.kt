@@ -1,11 +1,9 @@
 package com.example.app_challenge_meli.repositories
 
-import android.util.Log
 import com.example.app_challenge_meli.apis.RetrofitHelper
 import com.example.app_challenge_meli.model.description.Description
 import com.example.app_challenge_meli.model.item.Item
 import com.example.app_challenge_meli.model.search.Search
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import retrofit2.Response
 
 class ProductsRemoteData {
