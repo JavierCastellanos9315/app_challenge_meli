@@ -46,6 +46,7 @@ class DetailActivity : AppCompatActivity() {
                         adapter.attributes = it
                         adapter.notifyDataSetChanged()
                     }
+                    state?.item?.title?.let { txtTituloProducto.text = it }
                     state?.item?.pictures?.get(0)?.secureUrl?.let { thumb.loadUrl(it) }
                     state?.item?.price?.let { txtPrecio.text = convertPrice(it) }
                     state?.description?.plainText?.let { txtDescripcionProd.text = it }
